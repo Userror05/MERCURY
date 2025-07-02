@@ -46,6 +46,21 @@
 | `show_result(data_reconstructed: np.ndarray, year: int)` | Display a 2D reconstructed map | Reconstructed data and year index |
 
 ---
+# 📍 Reference Regions Description
+
+This project builds upon the well-established IPCC AR5 reference regions, which were originally designed for reporting sub-continental CMIP5 climate projections at a typical resolution of ~2°. With the higher resolution of CMIP6 and CORDEX datasets (typically ~1° and 0.5°), the number of reference regions has been refined and expanded to better capture diverse climate zones worldwide.
+
+The new framework now includes 46 land regions and 14 ocean regions, as defined in Iturbide et al. (2020). This improved partitioning enables more detailed and robust regional climate analyses.
+
+![Reference Regions Map](docs/reference_regions_map.png)
+
+# 📂 Available Data
+
+Region boundary coordinates (CSV and shapefiles)
+
+Other related datasets for reproducible analysis
+
+You can access the official reference datasets directly in this repository with the reference-regions file.
 # Required Files & Formats
 NetCDF files (*.nc) for historical and GCM datasets
 
