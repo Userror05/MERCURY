@@ -46,6 +46,19 @@
 | `show_result(data_reconstructed: np.ndarray, year: int)` | Display a 2D reconstructed map | Reconstructed data and year index |
 
 ---
+# Required Files & Formats
+NetCDF files (*.nc) for historical and GCM datasets
+
+CSV file for region definitions:
+
+Must include Acronym column and polygon coordinates separated by |
+
+Optional: KML files for polygonal regions (via fastkml)
+
+
+## Dependencies
+Install required packages with:  
+pip install numpy xarray netCDF4 cftime matplotlib cartopy shapely scikit-learn xesmf palettable pandas fastkml
 
 ## 🧪 Example Usage
 
@@ -68,17 +81,4 @@ cu.plot(ds_interp, annee=2000, mois="janvier")
 anomalies = cu.build_anomalies(data=ds, dataref=ds, period=(1850, 1900))
 
 
-Required Files & Formats
-NetCDF files (*.nc) for historical and GCM datasets
 
-CSV file for region definitions:
-
-Must include Acronym column and polygon coordinates separated by |
-
-Optional: KML files for polygonal regions (via fastkml)
-
-
-Dependencies
-Install required packages with:
-
-pip install numpy xarray netCDF4 cftime matplotlib cartopy shapely scikit-learn xesmf palettable pandas fastkml
