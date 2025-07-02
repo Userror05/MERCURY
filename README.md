@@ -52,7 +52,7 @@ This project builds upon the well-established IPCC AR5 reference regions, which 
 
 The new framework now includes 46 land regions and 14 ocean regions, as defined in Iturbide et al. (2020). This improved partitioning enables more detailed and robust regional climate analyses.
 
-![Reference Regions Map](docs/reference_regions_map.png)
+![Reference Regions Map](reference_regions.png)
 
 # 📂 Available Data
 
