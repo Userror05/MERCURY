@@ -15,6 +15,9 @@ import cftime
 from sklearn.neighbors import KNeighborsRegressor
 import netCDF4
 import cartopy.crs as ccrs
+from fastkml import kml
+from shapely.geometry import Point, Polygon
+from collections import Counter
 
 def import_data(nomfichier,path):   
     file = nomfichier
@@ -231,7 +234,7 @@ def build_anomalies(data,dataref,period = (1850,1900)):
     return anomalies
 
 def region_centered_poly(dataset,polyn): 
-    from shapely.geometry import Point, Polygon
+    
     polygon1 = Polygon(polyn).reverse()
     # Création de la grille lat/long
     lat = dataset.lat.values #np.linspace(50, 80, 180)  # Exemple de latitudes dans la plage de votre polygone
@@ -299,7 +302,7 @@ def nbr_clust(part):
     print("Nombre d’éléments par cluster :")
     for label, count in zip(unique_labels, counts):
         print(f"Cluster {label} : {count} éléments")
-    from collections import Counter
+    
 
     counts = Counter(part)
     single_occurrences = [k for k, v in counts.items() if v == 1]
@@ -521,7 +524,7 @@ def build_data_for_lift(data_region):
     ar3=data[~np.isnan(data).any(axis=1)]
     return ar3
     
-def lifting_scheme(data,y):
+def lifting_scheme(data,y,neighbours=1,w='distance'):
     d = ls_single_fwd(data)
     part_wlet = {'even':[],'odd':[]}
     part_wlet['even'] = d['even']
@@ -531,7 +534,7 @@ def lifting_scheme(data,y):
     coeff_wlet = np.delete(d['data'][-1], ind_even, axis=0)
     X_train = y
     Y_train = coeff_wlet
-    knn = KNeighborsRegressor(n_neighbors=1, weights='distance')  # ou 'uniform'
+    knn = KNeighborsRegressor(n_neighbors=neighbours, weights=w)  # ou 'uniform'
     knn.fit(X_train.reshape(-1,1), Y_train.T)  
 
     coeff_pred = knn.predict(y.reshape(-1, 1))
@@ -546,8 +549,8 @@ def rebuild_data_for_mapping(data_region,data_to_rebuild):
         reconstructed_full[t][mask_valid] = data_to_rebuild[:, t]
     return reconstructed_full
 
-def apply_lifitng_scheme(data_region,y):
-    return rebuild_data_for_mapping(data_region,lifting_scheme(build_data_for_lift(data_region),y))
+def apply_lifitng_scheme(data_region,y,neighbours=1,weights='distance'):
+    return rebuild_data_for_mapping(data_region,lifting_scheme(build_data_for_lift(data_region),y,neighbours,weights))
 
 def show_result(data_reconstructed, year=None):
     if year is not None:
@@ -571,7 +574,7 @@ def show_result(data_reconstructed, year=None):
     plt.show()
     
 def polygon_from_kml(nomfichier,path):
-    from fastkml import kml
+    
 
     with open(path+nomfichier, 'rt', encoding='utf-8') as f:
         doc = f.read()
