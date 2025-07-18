@@ -41,7 +41,7 @@
 | `global_anomalie_byear(anomalies: xr.Dataset)` | Compute global annual mean anomaly | Anomalies dataset |
 | `build_data_for_lift(data_region: xr.DataArray)` | Flatten a spatio-temporal region into matrix for ML | Monthly regional data |
 | `lifting_scheme(data: np.ndarray, y: np.ndarray)` | Apply wavelet-like lifting scheme with KNN regression | Feature matrix and target |
-| `apply_lifitng_scheme(data_region: xr.DataArray, y: np.ndarray)` | Full lifting + inverse reconstruction pipeline | Regional data and prediction |
+| `apply_lifitng_scheme(data_region: xr.DataArray, y: np.ndarray,neighbours : int, method : string)` | Full lifting + inverse reconstruction pipeline | Regional data and prediction |
 | `rebuild_data_for_mapping(data_region: np.ndarray, data_to_rebuild: np.ndarray)` | Reconstruct map from flat data | Masked region and flat array |
 | `show_result(data_reconstructed: np.ndarray, year: int)` | Display a 2D reconstructed map | Reconstructed data and year index |
 
